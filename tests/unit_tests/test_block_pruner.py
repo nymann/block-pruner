@@ -10,9 +10,9 @@ class TestCase:
 
     def __init__(
         self,
-        start: bytes,
-        end: bytes,
-        needle: bytes,
+        start: str,
+        end: str,
+        needle: str,
         expected_fname: str,
         input_fname: str,
     ) -> None:
@@ -29,9 +29,9 @@ class TestCase:
 
 test_cases = [
     TestCase(
-        start=b"start\n",
-        end=b"end\n",
-        needle=b"615\n",
+        start="start",
+        end="end",
+        needle="615",
         expected_fname="simple-expected-output.txt",
         input_fname="simple-input.txt",
     ),
