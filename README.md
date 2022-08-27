@@ -10,8 +10,7 @@ a
 start
 a
 b
-615
-b
+615 b
 d
 end
 f
@@ -49,6 +48,12 @@ end
 b
 3
 a
+```
+
+## Usage
+
+```sh
+block_pruner example.txt > out.txt
 ```
 
 ## Development
