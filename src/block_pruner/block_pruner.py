@@ -42,7 +42,7 @@ class BlockPruner:
     def _keep_or_disregard_block(self) -> None:
         if self._keep_block:
             self._save.extend(self._temp)
-        self._temp = []
+        self._temp.clear()
         self._keep_block = True
         self._inside_block = False
 
