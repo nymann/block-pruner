@@ -34,7 +34,7 @@ a
 ```
 
 ```
-$ block_pruner -i example.txt --start="start" --end="end" --needle="615"
+$ block_pruner --start start --end end --needle 615 example.txt
 a
 2
 f
@@ -53,7 +53,7 @@ a
 ## Usage
 
 ```sh
-block_pruner example.txt > out.txt
+block_pruner --start start --end end --needle 615 example.txt > out.txt
 ```
 
 ## Development
