@@ -16,10 +16,10 @@ class BlockPruner:
     def prune_file(self, input_file: Path) -> bytes:
         with open(input_file, "rb") as input_fp:
             for line in input_fp:
-                self.feed_line(line=line)
+                self._feed_line(line=line)
         return b"".join(self._save)
 
-    def feed_line(self, line: bytes) -> None:
+    def _feed_line(self, line: bytes) -> None:
         if line == self.start:
             self._inside_block = True
         if self._inside_block:

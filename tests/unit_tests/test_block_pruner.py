@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from block_pruner.block_pruner import BlockPruner
+from block_pruner import BlockPruner
 
 
 class TestCase:
