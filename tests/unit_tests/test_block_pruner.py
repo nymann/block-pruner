@@ -35,6 +35,20 @@ test_cases = [
         expected_fname="simple-expected-output.txt",
         input_fname="simple-input.txt",
     ),
+    TestCase(
+        start="start",
+        end="end",
+        needle="[0-9][0-9]5",
+        expected_fname="simple-expected-output.txt",
+        input_fname="simple-input.txt",
+    ),
+    TestCase(
+        start="sta.*",
+        end="e.d",
+        needle=".[0-9]5",
+        expected_fname="simple-expected-output.txt",
+        input_fname="simple-input.txt",
+    ),
 ]
 
 

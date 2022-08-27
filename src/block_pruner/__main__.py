@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import sys
+from typing import Optional
 
 from typer import Option
 from typer import Typer
@@ -9,6 +10,17 @@ from block_pruner.block_pruner import BlockPruner
 
 app = Typer()
 Required = Option(...)
+OutFileWithHelp = Option(None, help="Stores the output to this file, otherwise to stdout")
+
+
+def save(output: bytes, out: Optional[Path] = None) -> None:
+    if out is None:
+        with os.fdopen(sys.stdout.fileno(), "wb", closefd=False) as stdout:
+            stdout.write(output)
+            stdout.flush()
+    else:
+        with open(out, mode="w+b") as out_fp:
+            out_fp.write(output)
 
 
 @app.command()
@@ -17,7 +29,8 @@ def main(
     start: str = Required,
     end: str = Required,
     needle: str = Required,
-):
+    out: Optional[Path] = OutFileWithHelp,
+) -> None:
     for input_file in input_files:
         bp = BlockPruner(
             start=start,
@@ -25,9 +38,7 @@ def main(
             needle=needle,
         )
         output = bp.prune_file(input_file=input_file)
-        with os.fdopen(sys.stdout.fileno(), "wb", closefd=False) as stdout:
-            stdout.write(output)
-            stdout.flush()
+        save(output=output, out=out)
 
 
 if __name__ == "__main__":

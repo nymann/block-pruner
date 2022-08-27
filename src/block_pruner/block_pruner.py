@@ -1,11 +1,18 @@
 from pathlib import Path
 
+from block_pruner.match_str import MatchStr
+
 
 class BlockPruner:
-    def __init__(self, start: str, end: str, needle: str) -> None:
-        self.start = start
-        self.end = end
-        self.needle = needle
+    def __init__(
+        self,
+        start: str,
+        end: str,
+        needle: str,
+    ) -> None:
+        self.start = MatchStr(start)
+        self.end = MatchStr(end)
+        self.needle = MatchStr(needle)
 
         self._temp: list[bytes] = []
         self._save: list[bytes] = []
@@ -20,17 +27,16 @@ class BlockPruner:
         return b"".join(self._save)
 
     def _feed_line(self, raw_line: bytes) -> None:
-        line = utf8_or_empty(raw_line).strip("\n")
-        if line == self.start:
+        line: str = utf8_or_empty(raw_line).strip("\n")
+        if self.start == line:
             self._inside_block = True
         if self._inside_block:
             self._temp.append(raw_line)
-            if line == self.needle:
+            if self.needle == line:
                 self._keep_block = False
         else:
             self._save.append(raw_line)
-
-        if line == self.end:
+        if self.end == line:
             self._keep_or_disregard_block()
 
     def _keep_or_disregard_block(self) -> None:
