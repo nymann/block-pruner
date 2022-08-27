@@ -10,8 +10,7 @@ a
 start
 a
 b
-615
-b
+615 b
 d
 end
 f
@@ -35,7 +34,7 @@ a
 ```
 
 ```
-$ block_pruner -i example.txt --start="start" --end="end" --needle="615"
+$ block_pruner --start start --end end --needle 615 example.txt
 a
 2
 f
@@ -49,6 +48,12 @@ end
 b
 3
 a
+```
+
+## Usage
+
+```sh
+block_pruner --start start --end end --needle 615 example.txt > out.txt
 ```
 
 ## Development
