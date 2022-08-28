@@ -25,12 +25,23 @@ def save(output: bytes, out: Optional[Path] = None) -> None:
 
 @app.command()
 def main(
-    input_files: list[Path],
+    input_files: Optional[list[Path]] = None,
     start: str = Required,
     end: str = Required,
     needle: str = Required,
     out: Optional[Path] = OutFileWithHelp,
 ) -> None:
+
+    if not input_files:
+        bp = BlockPruner(
+            start=start,
+            end=end,
+            needle=needle,
+        )
+        output = bp.prune_bytes(sys.stdin.buffer.read())
+        save(output=output, out=out)
+        return
+
     for input_file in input_files:
         bp = BlockPruner(
             start=start,

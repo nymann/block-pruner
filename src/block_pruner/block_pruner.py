@@ -26,6 +26,11 @@ class BlockPruner:
                 self._feed_line(raw_line=line)
         return b"".join(self._save)
 
+    def prune_bytes(self, input_data: bytes) -> bytes:
+        for line in input_data.split(b"\n"):
+            self._feed_line(raw_line=line + b"\n")  # noqa: WPS336
+        return b"".join(self._save)
+
     def _feed_line(self, raw_line: bytes) -> None:
         line: str = utf8_or_empty(raw_line).strip("\n")
         if self.start == line:
