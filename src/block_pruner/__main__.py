@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 from typing import Optional
 
+from typer import Argument
 from typer import Option
 from typer import Typer
 
@@ -25,7 +26,7 @@ def save(output: bytes, out: Optional[Path] = None) -> None:
 
 @app.command()
 def main(
-    input_files: Optional[list[Path]] = None,
+    input_files: Optional[list[Path]] = Argument(None),
     start: str = Required,
     end: str = Required,
     needle: str = Required,
